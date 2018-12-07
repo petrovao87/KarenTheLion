@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 from db_lion import db_session, AnswersLion, AnswersAnother, User
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
