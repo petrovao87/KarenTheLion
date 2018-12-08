@@ -43,9 +43,10 @@ def callback_timer(bot, update, job_queue):
                     text='Игра начинается')
     
         #job_repeat = job_queue.run_repeating(callback_alarm, interval=10, context=update.message.chat_id)
-        job_repeat = job_queue.run_daily(callback_alarm, time=datetime.time(7, 30, 00), context=update.message.chat_id)
+        job_repeat = job_queue.run_daily(callback_alarm, time=datetime.time(6, 30, 00), context=update.message.chat_id)
         print("111")
 
+    #elif user_id == 192967689:
     elif user_id == 244744683:
         bot.send_message(chat_id=update.message.chat_id,
                     text = ("""
@@ -88,14 +89,14 @@ def chat_bot(bot, update):
 
        # answers_id = answrs.__dict__['content']
 
-    if lion_id == 1192967689:
+    if lion_id == 192967689:
 
         bot.send_message(chat_id=update.message.chat_id,
                     text="""Великий господин, мудрейший и светлейший! 
 Подчиняюсь тебе.
 Хруст пидор.""")
 
-    elif lion_id == 192967689:
+    elif lion_id == 244744683:
         answers = db_session.query(AnswersAnother).filter(AnswersAnother.id==rand_answers_lion).all()
         for answrs in answers:
 
