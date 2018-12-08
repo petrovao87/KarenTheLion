@@ -15,13 +15,18 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
 
 def callback_alarm(bot, job):
 
-    rand_alarm = random.randint(1,10)
-    alarm = db_session.query(AnswersLion).filter(AnswersLion.id==rand_alarm).all()
-    print(alarm)
-    for content in alarm:
+    try:
 
-        content_msg = content.__dict__['content']
-        bot.send_message(chat_id=job.context, text=content_msg)
+        rand_alarm = random.randint(1,10)
+        alarm = db_session.query(AnswersLion).filter(AnswersLion.id==rand_alarm).all()
+        print(alarm)
+        for content in alarm:
+
+            content_msg = content.__dict__['content']
+            bot.send_message(chat_id=job.context, text=content_msg)
+
+    except:
+        db_session.rollback()
 
 
 
@@ -88,30 +93,33 @@ def chat_bot(bot, update):
     #for answrs in answers:
 
        # answers_id = answrs.__dict__['content']
+    try:
+        if lion_id == 192967689:
 
-    if lion_id == 192967689:
-
-        bot.send_message(chat_id=update.message.chat_id,
-                    text="""Великий господин, мудрейший и светлейший! 
+            bot.send_message(chat_id=update.message.chat_id,
+                        text="""Великий господин, мудрейший и светлейший! 
 Подчиняюсь тебе.
 Хруст пидор.""")
 
-    elif lion_id == 244744683:
-        answers = db_session.query(AnswersAnother).filter(AnswersAnother.id==rand_answers_lion).all()
-        for answrs in answers:
 
-            answers_id = answrs.__dict__['content']
-            bot.send_message(chat_id=update.message.chat_id,
-                    text = "{}".format(answers_id)) 
+        elif lion_id == 244744683:
+            answers = db_session.query(AnswersAnother).filter(AnswersAnother.id==rand_answers_lion).all()
+            for answrs in answers:
+
+                answers_id = answrs.__dict__['content']
+                bot.send_message(chat_id=update.message.chat_id,
+                        text = "{}".format(answers_id)) 
 
 
-    else:
-        answers = db_session.query(AnswersAnother).filter(AnswersAnother.id==rand_answers).all()
-        for answrs in answers:
+        else:
+            answers = db_session.query(AnswersAnother).filter(AnswersAnother.id==rand_answers).all()
+            for answrs in answers:
 
-            answers_id = answrs.__dict__['content']
-            bot.send_message(chat_id=update.message.chat_id,
-                    text = "{}".format(answers_id))    
+                answers_id = answrs.__dict__['content']
+                bot.send_message(chat_id=update.message.chat_id,
+                        text = "{}".format(answers_id)) 
+    except:
+        db_session.rollback()   
 
 
 def job_stop(bot, update, job_queue):
